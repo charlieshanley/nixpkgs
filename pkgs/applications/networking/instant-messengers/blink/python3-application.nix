@@ -1,4 +1,4 @@
-{ lib, isPy3k, pythonOlder, buildPythonPackage, fetchFromGitHub, zope_interface, twisted, ... }:
+{ lib, isPy3k, buildPythonPackage, fetchFromGitHub, zope_interface, twisted, ... }:
 
 buildPythonPackage rec {
   pname = "python3-application";
@@ -7,14 +7,13 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "AGProjects";
     repo = "python3-application";
-    rev = "${version}";
-    sha256 = "sha256-oscUI/Ag/UXmAi/LN1pPTdyqQe9aAfeQzhKFxaTmW3A=";
+    rev = "8209f3334c9b603fc81509333c38909755f663db";
+    sha256 = "sha256-hZeG5y/fDTy7EuSkFG8ruMGwK5UaqUv8I3bj4Egyl6A=";
   };
 
   propagatedBuildInputs = [ zope_interface twisted ];
 
-  # time.clock is imported, and is deprecated in 3.8
-  disabled = !(isPy3k && pythonOlder "3.8");
+  disabled = !isPy3k;
 
   pythonImportsCheck = [ "application" ];
 

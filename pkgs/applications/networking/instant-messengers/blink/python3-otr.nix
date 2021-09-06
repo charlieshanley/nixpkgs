@@ -19,6 +19,7 @@ buildPythonPackage rec {
 
   dontUseSetuptoolsCheck = true; # some tests fail with "TypeError: can't concat str to bytes"
 
+  pythonImportsCheck = [ "otr" ];
 
   meta = with lib; {
     description = "Off-The-Record Messaging protocol implemented in pure python";

@@ -17,15 +17,15 @@ let
   };
 in buildPythonPackage rec {
   pname = "python3-sipsimple";
-  version = "5.2.2";
+  version = "5.2.6";
 
   src =
     fetchFromGitHub {
       name = pname;
       owner = "AGProjects";
       repo = "python3-sipsimple";
-      rev = "${version}";
-      sha256 = "sha256-QW4eEjsHJ/J6xI5DNK24FEtaX5D7TzRPfKNEdYmzoCI=";
+      rev = "8271220956f7d76ed467398329530efa4546666a";
+      sha256 = "sha256-eDCJHb4RphsykDpt5rCjz/GijfhbBLMLwRUhD4hRc5I=";
     };
 
   prePatch = ''

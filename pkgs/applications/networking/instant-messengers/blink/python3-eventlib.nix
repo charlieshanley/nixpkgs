@@ -15,8 +15,9 @@ buildPythonPackage rec {
 
   disabled = !isPy3k;
 
-  # Can I remove this?
   dontUseSetuptoolsCheck = true;
+
+  pythonImportsCheck = [ "eventlib" ];
 
   meta = with lib; {
     description = "A networking library written in Python";

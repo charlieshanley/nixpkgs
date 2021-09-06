@@ -1,14 +1,7 @@
-{ lib, python37Packages, libvncserver, xorg, makeDesktopItem
-, mkDerivationWith, fetchFromGitHub, callPackage }:
+{ lib, python3, libvncserver, xorg, makeDesktopItem
+, mkDerivationWith, fetchdarcs, callPackage }:
 let
-  # using Python 3.7 because python3-application requires older than 3.8
-  python37Packages' = python37Packages.override {
-    overrides = self: super: {
-      # because a test for pyroma segfaults under Python 3.7: https://github.com/NixOS/nixpkgs/issues/136901
-      pyroma = super.pyroma.overridePythonAttrs (old: rec { doCheck = false; });
-    };
-  };
-  callPackage' = p: callPackage p (python37Packages' // ag-deps);
+  callPackage' = p: callPackage p (python3.pkgs // ag-deps);
   ag-deps = {
     application = callPackage' ./python3-application.nix;
     ag-gnutls = callPackage' ./python3-gnutls.nix;
@@ -18,16 +11,15 @@ let
     sipsimple = callPackage' ./python3-sipsimple.nix;
     xcaplib = callPackage' ./python3-xcaplib.nix;
   };
-in with python37Packages'; mkDerivationWith buildPythonApplication rec {
+in with python3.pkgs; mkDerivationWith buildPythonApplication rec {
 
   pname = "blink";
-  version = "5.1.1";
+  version = "5.1.6";
 
-  src = fetchFromGitHub {
-    owner = "AGProjects";
-    repo = "blink-qt";
+  src = fetchdarcs {
+    url = "http://devel.ag-projects.com/repositories/blink-qt";
     rev = "${version}";
-    sha256 = "sha256-fZtMBBaDjnCK/P4LzFcClt8qhOihIwAHi2tY1Da/7VA=";
+    sha256 = "sha256-3fCirFRrHSUM1/m6fCLcQXjqncTIzh8JMOiTohAmvZU=";
   };
 
   propagatedBuildInputs = with ag-deps; [
@@ -47,7 +39,7 @@ in with python37Packages'; mkDerivationWith buildPythonApplication rec {
     xorg.libxcb
   ];
 
-  doCheck = false;
+  doCheck = false; # there are none, but test discovery dies trying to import a Windows library
   pythonImportsCheck = [ "blink" ];
 
   dontWrapQtApps = true;
