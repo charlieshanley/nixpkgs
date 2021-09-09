@@ -1,4 +1,5 @@
-{ lib, fetchFromGitHub, buildPythonPackage, isPy3k, application, lxml, gevent, eventlib, ... }:
+{ lib, fetchFromGitHub, buildPythonPackage, isPy3k, python3-application, lxml
+, gevent, python3-eventlib, ... }:
 
 buildPythonPackage rec {
   pname = "python3-xcaplib";
@@ -11,7 +12,7 @@ buildPythonPackage rec {
     sha256 = "sha256-Hp23msHe6Mey3ZZOvvXJ5dGDF1n4DfoZlW8yXFY6Oaw=";
   };
 
-  propagatedBuildInputs = [ lxml gevent eventlib application ];
+  propagatedBuildInputs = [ lxml gevent python3-eventlib python3-application ];
 
   disabled = !isPy3k;
 
