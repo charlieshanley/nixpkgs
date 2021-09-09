@@ -1,7 +1,8 @@
 { lib, fetchFromGitHub, buildPythonPackage, isPy3k, twisted, cython, openssl
-, ffmpeg, sqlite, libv4l, libopus, alsaLib, opencore-amr, pkg-config, application
-, eventlib, ag-gnutls, otr, msrplib, xcaplib, dateutil, dns, gevent, lxml, x264
-, libvpx, iana-etc, libredirect, ... }:
+, ffmpeg, sqlite, libv4l, libopus, alsaLib, opencore-amr, pkg-config
+, python3-application, python3-eventlib, python3-gnutls, python3-otr
+, python3-msrplib, python3-xcaplib, dateutil, dns, gevent, lxml, x264, libvpx
+, iana-etc, libredirect, ... }:
 let
   pjsip-src = fetchFromGitHub {
     owner = "pjsip";
@@ -67,17 +68,17 @@ in buildPythonPackage rec {
   '';
 
   propagatedBuildInputs = [
-    application
     dateutil
     dns
-    eventlib
     gevent
-    ag-gnutls
     lxml
-    msrplib
-    otr
+    python3-application
+    python3-eventlib
+    python3-gnutls
+    python3-msrplib
+    python3-otr
+    python3-xcaplib
     twisted
-    xcaplib
   ];
 
   nativeBuildInputs = [
