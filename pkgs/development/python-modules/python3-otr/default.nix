@@ -1,4 +1,5 @@
-{ lib, fetchFromGitHub, buildPythonPackage, isPy3k, zope_interface, application, cryptography,  gmpy2, ... }:
+{ lib, fetchFromGitHub, buildPythonPackage, isPy3k, zope_interface
+, python3-application, cryptography,  gmpy2, ... }:
 
 buildPythonPackage rec {
   pname = "python3-otr";
@@ -13,7 +14,7 @@ buildPythonPackage rec {
 
   disabled = !isPy3k;
 
-  propagatedBuildInputs = [ application zope_interface cryptography gmpy2 ];
+  propagatedBuildInputs = [ python3-application zope_interface cryptography gmpy2 ];
 
   patches = [ ./python3-otr-dep-name.patch ]; # remove if upstream PR accepted
 
