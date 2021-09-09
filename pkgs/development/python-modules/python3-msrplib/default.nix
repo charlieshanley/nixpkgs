@@ -1,5 +1,5 @@
-{ lib, fetchFromGitHub, buildPythonPackage, isPy3k, application, ag-gnutls, eventlib
-, twisted, zope_interface, ... }:
+{ lib, fetchFromGitHub, buildPythonPackage, isPy3k, python3-application
+, python3-gnutls, python3-eventlib, twisted, zope_interface, ... }:
 
 buildPythonPackage rec {
   pname = "python3-msrplib";
@@ -14,7 +14,7 @@ buildPythonPackage rec {
 
   disabled = !isPy3k;
 
-  propagatedBuildInputs = [ application ag-gnutls eventlib twisted zope_interface ];
+  propagatedBuildInputs = [ python3-application python3-gnutls python3-eventlib twisted zope_interface ];
 
   buildInputs = [ ];
 
