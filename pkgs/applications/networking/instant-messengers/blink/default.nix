@@ -1,17 +1,8 @@
-{ lib, python3, libvncserver, xorg, makeDesktopItem
-, mkDerivationWith, fetchdarcs, callPackage }:
-let
-  callPackage' = p: callPackage p (python3.pkgs // ag-deps);
-  ag-deps = {
-    application = callPackage' ./python3-application.nix;
-    ag-gnutls = callPackage' ./python3-gnutls.nix;
-    eventlib = callPackage' ./python3-eventlib.nix;
-    msrplib = callPackage' ./python3-msrplib.nix;
-    otr = callPackage' ./python3-otr.nix;
-    sipsimple = callPackage' ./python3-sipsimple.nix;
-    xcaplib = callPackage' ./python3-xcaplib.nix;
-  };
-in with python3.pkgs; mkDerivationWith buildPythonApplication rec {
+{ lib, python3, libvncserver, xorg, makeDesktopItem, mkDerivationWith
+, fetchdarcs, callPackage }:
+
+with python3.pkgs;
+mkDerivationWith buildPythonApplication rec {
 
   pname = "blink";
   version = "5.1.6";
@@ -22,11 +13,11 @@ in with python3.pkgs; mkDerivationWith buildPythonApplication rec {
     sha256 = "sha256-3fCirFRrHSUM1/m6fCLcQXjqncTIzh8JMOiTohAmvZU=";
   };
 
-  propagatedBuildInputs = with ag-deps; [
+  propagatedBuildInputs = [
     pyqt5_with_qtwebkit
-    application
-    eventlib
-    sipsimple
+    python3-application
+    python3-eventlib
+    python3-sipsimple
     google-api-python-client
   ];
 
